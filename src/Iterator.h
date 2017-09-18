@@ -4,6 +4,7 @@
 template <class Item>
 class Iterator {
 public:
+	virtual ~Iterator();
     virtual void First() = 0;
     virtual void Next() = 0;
     virtual bool IsDone() const = 0;
@@ -14,6 +15,10 @@ protected:
 
 template <class Item>
 Iterator<Item>::Iterator()
+{}
+
+template <class Item>
+Iterator<Item>::~Iterator()
 {}
 
 #endif /* ITERATOR_H */

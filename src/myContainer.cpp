@@ -1,113 +1,99 @@
-//============================================================================
-// Name        : myContainer.cpp
-// Author      : Kasianov
-// Version     :
-// Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
-//============================================================================
+
 
 // Chapter 20, Exercise 19: define a range-checked iterator for list (a bidirec-
 // tional iterator)
 
-#include "std_lib_facilities.h"
-#include "Iterator.h"
+//#include "std_lib_facilities.h"
+//#include "Iterator.h"
 
+#include <assert.h>
+#include <iostream>
+#include <string>
+#include <stdexcept>
+#include <list>
+
+using namespace std;
+
+template<class Item>
+class Iterator {
+public:
+	virtual ~Iterator();
+	virtual void First() = 0;
+	virtual void Next() = 0;
+	virtual bool IsDone() const = 0;
+	virtual Item * CurrentItem() const = 0;
+protected:
+	Iterator();
+};
+
+template<class Item>
+Iterator<Item>::Iterator() {
+}
+
+template<class Item>
+Iterator<Item>::~Iterator() {
+}
+//------------------------------------------------------------------------------
+
+struct A {
+	A(string mark) :
+			mMark(mark) {
+	}
+	string mMark;
+};
+
+//------------------------------------------------------------------------------
 
 template<class T>
-class IteratorList_rc : public Iterator<T> {
+class IteratorList: public Iterator<T> {
 	typename list<T>::iterator curr;
 	typename list<T>::iterator first;
 	typename list<T>::iterator last;
 public:
- 	virtual ~IteratorList_rc() {}
-	IteratorList_rc(typename list<T>::iterator c, typename list<T>::iterator f, typename list<T>::iterator l)
-		: curr(c), first(f), last(l) { }
+	virtual ~IteratorList() {}
+	IteratorList(typename list<T>::iterator c, typename list<T>::iterator f,
+			typename list<T>::iterator l) :
+				curr(c), first(f), last(l) {
+	}
 
-	T& operator*() { return *curr; }
-	const T& operator*() const { return *curr; }
-	T* operator->() { return &(*curr); }
+	void  Init(typename list<T>::iterator c, typename list<T>::iterator f, typename list<T>::iterator l ) {
+		curr = c;
+		first = f;
+		last = l;
+	}
 
-	IteratorList_rc& operator++();
-	IteratorList_rc& operator--();
+	// By GoF
+	virtual void First();
+	virtual void Next();
+	virtual bool IsDone() const;
+	virtual T* CurrentItem() const;
 
-	//bool operator==(const l_iterator_rc& other) { return curr==other.curr; }
-	//bool operator!=(const l_iterator_rc& other) { return !(*this==other); }
+	// Стратуструп
+	T& operator*() {
+		return *curr;
+	}
+	const T& operator*() const {
+		return *curr;
+	}
+	T* operator->() {
+		return &(*curr);
+	}
 
-	/************************************************************************/
-	public:
-	 virtual void Next();
-	 virtual void First();
-	 virtual bool IsDone() const;
-	 virtual T* CurrentItem() const;
 
-	 typename list<T>::iterator Curr() {
-		return curr;
-	 }
+	IteratorList& operator++();
+	IteratorList& operator--();
 };
 
-template<class T>
-T* IteratorList_rc<T>::CurrentItem() const {
-	return &(*curr); //  error if(curr == nullptr) return 0;
-}
-
-//------------------------------------------------------------------------------
-template<class T>
-IteratorList_rc<T>& IteratorList_rc<T>::operator++()
-{
-	++curr;
-	if (curr==last) error("iterator past end of list");
-	return *this;
-}
-
-//------------------------------------------------------------------------------
-template<class T>
-IteratorList_rc<T>& IteratorList_rc<T>::operator--()
-{
-	if (curr==first) error("iterator before begin of list");
-	--curr;
-	return *this;
-}
-
-template<class T>
-void IteratorList_rc<T>::First() {
-	curr = first;
-	// return this->Next()
-}
-
-template<class T>
-void IteratorList_rc<T>::Next() {
-
-	if (curr != last)
-		++curr;
-	else
-		error("iterator past end of list");
-	//return *this;
-}
-
-template <class T>
-bool IteratorList_rc<T>::IsDone() const {
-	return curr == last ;
-}
-
-//------------------------------------------------------------------------------
-struct A {
-	A(int i1, int i2, string mark) : a(i1), b(i2), mMark(mark) { }
-	int a;
-	int b;
-	string mMark;
-
-};
-
-template <typename T>
-class ConstainerList {
+template<typename T>
+class ContainerList {
 public:
-	ConstainerList() {
+	ContainerList() {
 	}
 	void PushBack(T car) {
 		Cares.push_back(car);
 	}
 
-	typename list<T>::iterator  Begin() {
+	typename list<T>::iterator Begin() {
 		return Cares.begin();
 	}
 
@@ -115,116 +101,113 @@ public:
 		return Cares.end();
 	}
 private:
-	 list<T> Cares;
+	list<T> Cares;
 };
 
-template< typename T>
+template<typename T>
 class CollectionList {
 public:
-	CollectionList() :myLa(), myIta_rc(myLa.Begin(), myLa.Begin(), myLa.End()) { // my пустой myIta_rc тожет инит. копиями пустых итераторов
-				// идея связать myLa и myIta_rc на этапе создания коллекции (зарание)
+	CollectionList() :
+		containList(), itList(containList.Begin(), containList.Begin(), containList.End()) { // my пустой itList тоже инит. копиями пустых итераторов
+		// идея связать containList и itList на этапе создания коллекции (заранее)
 	}
 	void Add(T item) {
-		myLa.PushBack(item);
+		containList.PushBack(item);
 	}
-	void First() {
-		myIta_rc.First();
-	}
-	void Next() {
-		myIta_rc.Next();
-	}
-
 	T* Get() {
-		return myIta_rc.CurrentItem();
+		return itList.CurrentItem();
+	}
+
+	void First() {
+		itList.Init(containList.Begin(), containList.Begin(), containList.End());
+		itList.First();
+	}
+
+	void Next() {
+		itList.Next();
+	}
+
+	bool IsDone() {
+		return itList.IsDone();
 	}
 
 private:
-	ConstainerList<T> myLa;
-	IteratorList_rc<T> myIta_rc;
+	ContainerList<T> containList;
+	IteratorList<T> itList;
 };
 
-template< typename T>
-class TestConsructorIteratorRef {
-public:
-	TestConsructorIteratorRef(typename list<T>::iterator  iterByMyContain) : mRefIt(iterByMyContain) {
-		//++iterByMyContain;			// инкрементируется только в конструкторе
-	}
+//------------------------------------------------------------------------------
 
-	void testNext() {
-
-		cout << "Ref test :" << mRefIt->mMark <<  "\n";
-		++mRefIt;
-	}
-
-private:
-	typename list<T>::iterator   mRefIt;
-
-};
-
-
-int main()
+int main() {
 	try {
 
+		A* a1 = new A("bmw");
+		A* a2 = new A("honda");
+		A* a3 = new A("mazda");
 
-		A a1(0,1, "bmw");
-		A a2(1,2, "honda");
-		A a3(2,3, "lada");
-
-		//  [9/15/2017 KASYANOVNN]
-		CollectionList<A> coll;
-
-		ConstainerList<A> myLa;
-
-		TestConsructorIteratorRef<A> test(myLa.Begin());
-
-		myLa.PushBack(a1);
-		myLa.PushBack(a2);
-		myLa.PushBack(a3);
-		myLa.PushBack(a3);
-		myLa.PushBack(a3);
-		myLa.PushBack(a3);
-
+		CollectionList<A*> coll;
 		coll.Add(a1);
 		coll.Add(a2);
 		coll.Add(a3);
 
-		coll.First();
-		//col.Next();
-		//coll.Get();
-		//cout << "test" << coll.Get()->mMark << "\n";
+		cout  << " collection : \n";
 
-		// Проблема сосбетвенным контейнером
-	//	IteratorList_rc<A> myIta_rc(myLa.Begin(), myLa.Begin(), myLa.End());
+		for(coll.First(); !coll.IsDone(); coll.Next()){
+			A *a = *coll.Get();
+			cout << a->mMark << "\n";
+		}
+//		 coll.Next(); //  assert error
 
-		//TestConsructorIteratorRef<A> test(myIta_rc.Curr());
-		test.testNext();
-		//myIta_rc.Next();
+	}
 
-		test.testNext();
-		//myIta_rc.Next();
-
-		test.testNext();
-		//myIta_rc.Next();
-//
-//		test.testNext();
-//		//myIta_rc.Next();
-
-		//test.foo(myLa.End() );
-
-		//for (myIta_rc.First(); !myIta_rc.IsDone(); myIta_rc.Next()) {
-		//	A* tmp = myIta_rc.CurrentItem();
-		//	cout << tmp->mMark << ' ' << tmp->b << "\n";
-		//	//test.foo(myIta_rc.Curr() );
-		//}
+	catch (exception& e) {
+		cerr << "exception: " << e.what() << endl;
+	}
+	catch (...) {
+		cerr << "exception\n";
+	}
 }
 
-catch (Range_error& re) {
-    cerr << "bad index: " << re.index << "\n";
-}
-catch (exception& e) {
-    cerr << "exception: " << e.what() << endl;
-}
-catch (...) {
-    cerr << "exception\n";
+//------------------------------------------------------------------------------
+
+template<class T>
+IteratorList<T>& IteratorList<T>::operator++() {
+	++curr;
+	if (curr == last)
+		assert(!"iterator past end of list");
+	return *this;
 }
 
+template<class T>
+IteratorList<T>& IteratorList<T>::operator--() {
+	if (curr == first)
+		assert(!"iterator before begin of list");
+	--curr;
+	return *this;
+}
+
+//------------------------------------------------------------------------------
+
+template<class T>
+void IteratorList<T>::First() {
+	curr = first;
+}
+
+template<class T>
+void IteratorList<T>::Next() {
+
+	if (curr != last)
+		++curr;
+	else
+		assert(!"iterator past end of list");
+}
+
+template<class T>
+bool IteratorList<T>::IsDone() const {
+	return curr == last;
+}
+
+template<class T>
+T* IteratorList<T>::CurrentItem() const {
+	return &(*curr);
+}
