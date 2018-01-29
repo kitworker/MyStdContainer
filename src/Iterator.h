@@ -31,7 +31,7 @@ public:
     virtual bool IsDone() const;
     virtual T* CurrentItem() const;
 
-    // Страуструп
+    // Stroustrup
     IteratorList& operator++();
     IteratorList& operator--();
     T& operator*() {
