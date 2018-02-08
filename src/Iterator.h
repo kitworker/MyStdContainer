@@ -1,7 +1,7 @@
 /*
  * IteratorList.h
  *
- *  Created on: 18 сент. 2017 г.
+ *  Created on: 18 пїЅпїЅпїЅпїЅ. 2017 пїЅ.
  *      Author: KASYANOVNN
  */
 
@@ -15,7 +15,7 @@ template<typename T>
 class ContainerList ;
 
 template<class T>
-class IteratorList: public IIterator<T> {
+class IteratorList: public IIterator {
     ContainerList<T> & container;
     typename ContainerList<T>::iterator curr; // change part
 
@@ -51,7 +51,7 @@ public:
 //template<class T>
 template<typename TData, template<typename _Tp,	typename _Alloc = std::allocator<_Tp> >
 		 class TContain>
-class IteratorStl: public IIterator<TData> {
+class IteratorStl: public IIterator {
 public:
 	virtual ~IteratorStl() {
 	}
