@@ -8,35 +8,6 @@
 #ifndef COLLECTION_H_
 #define COLLECTION_H_
 
-template<typename T>
-class CollectionList {
-public:
-	CollectionList() :
-			containList(), itList(containList) {
-	}
-	void Add(T item) {
-		containList.PushBack(item);
-	}
-	T* Get() {
-		return itList.CurrentItem();
-	}
-
-	void First() {
-		itList.First();
-	}
-
-	void Next() {
-		itList.Next();
-	}
-
-	bool IsDone() {
-		return itList.IsDone();
-	}
-
-private:
-	ContainerList<T> containList;
-	IteratorList<T> itList;
-};
 
 template<typename TData, template<typename _Tp,	typename _Alloc = std::allocator<_Tp> >
 		class TContain>

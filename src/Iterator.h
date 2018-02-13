@@ -11,44 +11,6 @@
 
 #include "Container.h"
 
-template<typename T>
-class ContainerList ;
-
-template<class T>
-class IteratorList: public IIterator {
-    ContainerList<T> & container;
-    typename ContainerList<T>::iterator curr; // change part
-
-public:
-    virtual ~IteratorList() {}
-    IteratorList(ContainerList<T> & c)
-        : container(c), curr(c.Begin())
-    { }
-
-    // By GoF
-    virtual void First();
-    virtual void Next();
-    virtual bool IsDone() const;
-//     T* CurrentItem() const;
-
-    // Stroustrup
-    IteratorList& operator++();
-    IteratorList& operator--();
-    T& operator*() {
-        return *curr;
-    }
-    const T& operator*() const {
-        return *curr;
-    }
-    T* operator->() {
-        return &(*curr);
-    }
-};
-
-
-//--------------------------------------------------------
-
-//template<class T>
 template<typename TData, template<typename _Tp,	typename _Alloc = std::allocator<_Tp> >
 		 class TContain>
 class IteratorStl: public IIterator {

@@ -58,42 +58,4 @@ int main() {
     }
 }
 
-//------------------------------------------------------------------------------
 
-template<class T>
-IteratorList<T>& IteratorList<T>::operator++() {
-    assert(curr != container.End() && "iterator past end of list");
-    ++curr;
-    return *this;
-}
-
-template<class T>
-IteratorList<T>& IteratorList<T>::operator--() {
-    assert(curr != container.Begin() && "iterator before begin of list");
-    --curr;
-    return *this;
-}
-
-//------------------------------------------------------------------------------
-
-template<class T>
-void IteratorList<T>::First() {
-    curr = container.Begin();
-}
-
-template<class T>
-void IteratorList<T>::Next() {
-   assert(curr != container.End() && "iterator past end of list" );
-   ++curr;
-}
-
-template<class T>
-bool IteratorList<T>::IsDone() const {
-    return curr == container.End();
-}
-
-//template<class T>
-//T* IteratorList<T>::CurrentItem() const {
-//	assert(curr != container.End() && " collection is empty or need in advance to call First() ");
-//    return &(*curr);
-//}
