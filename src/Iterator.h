@@ -29,7 +29,7 @@ public:
     virtual void First();
     virtual void Next();
     virtual bool IsDone() const;
-    virtual T* CurrentItem() const;
+//     T* CurrentItem() const;
 
     // Stroustrup
     IteratorList& operator++();
@@ -63,7 +63,7 @@ public:
 	virtual void First();
 	virtual void Next();
 	virtual bool IsDone() const;
-	virtual TData* CurrentItem() const;
+	 TData* CurrentItem() const;
 private:
 	ContainerStl<TData, TContain> & container;
 	typename ContainerStl<TData, TContain>::iterator curr;

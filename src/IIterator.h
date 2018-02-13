@@ -10,7 +10,10 @@ public:
     virtual bool IsDone() const = 0;
     //virtual Item * CurrentItem() const = 0;
     template<class Item>
-    Item * CurrentItem() const ;
+    Item * CurrentItem() const {
+    	assert(!"Incorrect overridden");
+    	return NULL;
+    }
 protected:
     IIterator();
 };

@@ -28,17 +28,6 @@ int main() {
         A* a3 = new A("mazda");
 
 
-        CollectionList<A*> coll;
-        coll.Add(a1);
-        coll.Add(a2);
-        coll.Add(a3);
-
-        cout  << " simple collection on list	: \n";
-        for(coll.First(); !coll.IsDone(); coll.Next()){
-            A *a = *coll.Get();
-            cout << a->mMark << "\n";
-        }
-
         //------------------------------------------------------
 
         CollectionStl<A*, list> collList;
@@ -103,8 +92,8 @@ bool IteratorList<T>::IsDone() const {
     return curr == container.End();
 }
 
-template<class T>
-T* IteratorList<T>::CurrentItem() const {
-	assert(curr != container.End() && " collection is empty or need in advance to call First() ");
-    return &(*curr);
-}
+//template<class T>
+//T* IteratorList<T>::CurrentItem() const {
+//	assert(curr != container.End() && " collection is empty or need in advance to call First() ");
+//    return &(*curr);
+//}
