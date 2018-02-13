@@ -1,7 +1,7 @@
 /*
  * CollectionList.h
  *
- *  Created on: 18 сент. 2017 г.
+ *  Created on: 18 пїЅпїЅпїЅпїЅ. 2017 пїЅ.
  *      Author: KASYANOVNN
  */
 
@@ -49,7 +49,7 @@ public:
 	void Add(TData item) {
 		contain.PushBack(item);
 	}
-	TData* Get() {
+	const TData& Get() {
 		return iter.CurrentItem();
 	}
 
@@ -67,7 +67,7 @@ public:
 
 	void Print() {
 		for (First(); !IsDone(); Next()) {
-			TData tmp = *Get();
+			TData tmp = Get();
 			assert(cout << tmp->mMark << "\n" && " debug");
 		}
 	}

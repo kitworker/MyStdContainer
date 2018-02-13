@@ -63,7 +63,7 @@ public:
 	virtual void First();
 	virtual void Next();
 	virtual bool IsDone() const;
-	 TData* CurrentItem() const;
+	const TData& CurrentItem() const;
 private:
 	ContainerStl<TData, TContain> & container;
 	typename ContainerStl<TData, TContain>::iterator curr;
@@ -86,8 +86,8 @@ bool IteratorStl<TData, TContain>::IsDone() const {
 }
 
 template<typename TData, template<typename _Tp,	typename _Alloc = std::allocator<_Tp> > class TContain>
-TData* IteratorStl<TData, TContain>::CurrentItem() const {
+const TData& IteratorStl<TData, TContain>::CurrentItem() const {
 	assert(curr != container.End() && " collection is empty or need in advance to call First() ");
-    return &(*curr);
+    return (*curr);
 }
 #endif /* ITERATOR_H_ */
