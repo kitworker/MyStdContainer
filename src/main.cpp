@@ -22,6 +22,11 @@ using namespace std;
 
 int main() {
     try {
+    	 ContainerStl<int, list> contain;
+
+//    	IteratorStl<int, list > *backItr 	= new IteratorStl<int, list>( contain );
+    	IteratorBack<int, list > *backItr 	= new IteratorBack<int, list>( contain );
+
 
         A* a1 = new A("bmw");
         A* a2 = new A("honda");

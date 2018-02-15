@@ -26,7 +26,7 @@ public:
     virtual ~IIteratorBack() {}
     virtual void End() = 0;
     virtual void Prev() = 0;
-    virtual bool IsHead() = 0;
+    virtual bool IsHead() const = 0;
 
 protected:
     IIteratorBack() {}

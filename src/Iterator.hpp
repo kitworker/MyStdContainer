@@ -32,6 +32,4 @@ const TData& IteratorStl<TData, TContain>::CurrentItem() const {
 }
 
 
-
-
 #endif /* ITERATOR_HPP_ */

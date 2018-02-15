@@ -36,21 +36,21 @@ template<typename TData, template<typename _Tp,	typename _Alloc = std::allocator
 class IteratorBack: public IIteratorBack{
 	//typename IteratorBack<TData, TContain>::reverse_iterator rCurr;
 	typedef typename TContain<TData>::reverse_iterator reverse_iterator;
+	ContainerStl<TData, TContain> & container;
 	reverse_iterator rCurr;
-	IteratorBack<TData, TContain> & container;
 public:
 	virtual ~IteratorBack() {
 	}
 
 	IteratorBack(ContainerStl<TData, TContain> &  c) :
-			container(c), rCurr(c.Begin()) {
+		container(c), rCurr( c.rBegin()) {
 	}
 
 	// By GoF
-	virtual void First();
-	virtual void Next();
-	virtual bool IsDone() const;
-	const TData& CurrentItem() const;
+	virtual void End(){}
+	virtual void Prev(){}
+	virtual bool IsHead() const { return false; }
+	const TData& CurrentItem() const { return NULL; }
 
 };
 

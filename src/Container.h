@@ -1,7 +1,7 @@
 /*
  * ContainerList.h
  *
- *  Created on: 18 сент. 2017 г.
+ *  Created on: 18 пїЅпїЅпїЅпїЅ. 2017 пїЅ.
  *      Author: KASYANOVNN
  */
 
@@ -46,7 +46,7 @@ public:
 	virtual iterator Begin()=0;
 	virtual iterator End()=0;
 
-	IContainer(){}	// TODO не получается сделать приватным приватным, почему?
+	IContainer(){}	// TODO пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ?
 private:
 };
 
@@ -59,7 +59,7 @@ public:
 	ContainerStl() {	}
 	virtual ~ContainerStl() {	}
 
-	typedef typename TContain<TData>::iterator iterator; // TODO повтороное объявление
+	typedef typename TContain<TData>::iterator iterator; // TODO пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
 	virtual void PushBack(TData item) {
 		items.push_back(item);
@@ -68,6 +68,11 @@ public:
 	virtual iterator Begin() {
 		return items.begin();
 	}
+	typedef typename TContain<TData>::reverse_iterator reverse_iterator;
+	virtual reverse_iterator rBegin() {
+		return items.rbegin();
+	}
+
 
 	virtual iterator End() {
 		return items.end();
