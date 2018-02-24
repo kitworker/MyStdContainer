@@ -68,6 +68,7 @@ public:
 	virtual iterator Begin() {
 		return items.begin();
 	}
+
 	typedef typename TContain<TData>::reverse_iterator reverse_iterator;
 	virtual reverse_iterator rBegin() {
 		return items.rbegin();
@@ -76,6 +77,10 @@ public:
 
 	virtual iterator End() {
 		return items.end();
+	}
+
+	virtual reverse_iterator rEnd() {
+		return items.rend();
 	}
 private:
 	TContain<TData> items;

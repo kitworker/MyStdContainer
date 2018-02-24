@@ -18,10 +18,8 @@ public:
 	virtual ~IteratorStl() {
 	}
 	IteratorStl(ContainerStl<TData, TContain> &  c) :
-			container(c), curr(c.Begin()) {
-	}
+			container(c), curr(c.Begin()) { }
 
-	// By GoF
 	virtual void First();
 	virtual void Next();
 	virtual bool IsDone() const;
@@ -34,22 +32,19 @@ private:
 template<typename TData, template<typename _Tp,	typename _Alloc = std::allocator<_Tp> >
 		 class TContain>
 class IteratorBack: public IIteratorBack{
-	//typename IteratorBack<TData, TContain>::reverse_iterator rCurr;
 	typedef typename TContain<TData>::reverse_iterator reverse_iterator;
 	ContainerStl<TData, TContain> & container;
 	reverse_iterator rCurr;
 public:
-	virtual ~IteratorBack() {
-	}
+	virtual ~IteratorBack() { }
 
 	IteratorBack(ContainerStl<TData, TContain> &  c) :
-		container(c), rCurr( c.rBegin()) {
-	}
+		container(c), rCurr( c.rBegin()) { }
 
-	// By GoF
-	virtual void End(){}
-	virtual void Prev(){}
-	virtual bool IsHead() const { return false; }
+	virtual void End();
+	virtual void Prev();
+	virtual bool IsHead() const;
+	// TODO return iterator, but not return TData, it need deligieted in class Collection
 	const TData& CurrentItem() const { return NULL; }
 
 };
