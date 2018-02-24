@@ -45,7 +45,7 @@ public:
 	virtual void Prev();
 	virtual bool IsHead() const;
 	// TODO return iterator, but not return TData, it need deligieted in class Collection
-	const TData& CurrentItem() const { return NULL; }
+	const reverse_iterator& CurrentIterator() const { return rCurr; }
 
 };
 

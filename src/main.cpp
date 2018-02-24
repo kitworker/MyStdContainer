@@ -28,6 +28,7 @@ int main() {
     	IteratorBack<int, list > *backItr 	= new IteratorBack<int, list>( contain );
 
 
+
         A* a1 = new A("bmw");
         A* a2 = new A("honda");
         A* a3 = new A("mazda");
@@ -50,8 +51,16 @@ int main() {
 
         cout  << " collection on  template vector : \n";
         collVector.Print();
-        //collVector.Next();
-        //A *a = *collVector.Get();
+
+        cout << " collection back iterator " << endl;
+        CollectionBack<A*, list> collectionBack;
+        collectionBack.Add(a1);
+        collectionBack.Add(a2);
+        collectionBack.Add(a3);
+
+        collectionBack.Print();
+
+
 
     }
 
