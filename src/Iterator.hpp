@@ -45,6 +45,18 @@ const TData& IteratorStl<TData, TContain>::CurrentItem() const {
     return (*curr);
 }
 
+//template<typename TData, template<typename Tp, typename Alloc = std::allocator<Tp> > class TContain>
+//const IteratorStl<TData, TContain>::iterator& IteratorStl<TData, TContain>::CurrentIterator() const{
+//	return curr;
+//}
+
+//template<typename TData, template<typename _Tp,	typename _Alloc = std::allocator<_Tp> > class TContain>
+////const iterator& IteratorStl<TData, TContain>::CurrentIterator() const {
+//const iterator& IteratorStl<TData, TContain>::CurrentIterator() const {
+//    return curr;
+//}
+
+
 template<typename TData, template<typename Tp, typename Alloc =std::allocator<Tp> > class TContain>
 void IteratorBack<TData, TContain>::End()  {
 	rCurr = container.rBegin();

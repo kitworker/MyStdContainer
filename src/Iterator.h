@@ -24,9 +24,12 @@ public:
 	virtual void Next();
 	virtual bool IsDone() const;
 	const TData& CurrentItem() const;
+	typedef typename TContain<TData>::iterator iterator;
+	const iterator& CurrentIterator() const { return curr; }
 private:
 	ContainerStl<TData, TContain> & container;
-	typename ContainerStl<TData, TContain>::iterator curr;
+//	typename ContainerStl<TData, TContain>::iterator curr;
+	iterator curr;
 };
 
 template<typename TData, template<typename _Tp,	typename _Alloc = std::allocator<_Tp> >

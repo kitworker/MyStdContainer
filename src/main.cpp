@@ -25,7 +25,6 @@ int main() {
     	 ContainerStl<int, list> contain;
 
 //    	IteratorStl<int, list > *backItr 	= new IteratorStl<int, list>( contain );
-    	IteratorBack<int, list > *backItr 	= new IteratorBack<int, list>( contain );
 
 
 
@@ -59,6 +58,13 @@ int main() {
         collectionBack.Add(a3);
 
         collectionBack.Print();
+
+        cout << " collection bidirection iterator " << endl;
+        CollectionBiDir<A*, list> collectionBiDir;
+        collectionBiDir.Add(a1);
+        collectionBiDir.Add(a2);
+        collectionBiDir.Add(a3);
+        collectionBiDir.Print();
 
 
 
