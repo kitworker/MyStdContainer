@@ -19,8 +19,8 @@ class CollectionBiDir {
 public:
 	CollectionBiDir() :
 			contain(),
-			iterBck(contain),
-			iterFwd(contain),
+			iterBck(contain.Begin()),
+			iterFwd(contain.Begin()),
 			dir(FWD) {
 	}
 
@@ -28,6 +28,7 @@ public:
 		contain.PushBack(item);
 	}
 	const TData& Get() {
+		// need test on NULL
 		return (*CurrentIterator() );
 	}
 

@@ -64,6 +64,9 @@ int main() {
         collectionBiDir.Add(a1);
         collectionBiDir.Add(a2);
         collectionBiDir.Add(a3);
+        collectionBiDir.Add(a3);
+        collectionBiDir.Add(a3);
+        collectionBiDir.Add(a3);
         collectionBiDir.Print();
 
 
